@@ -24,9 +24,9 @@ export const generateGradientCSSString = (
 ) => {
   const { customStepDirection = '45deg', customStepStops = [] } = options;
   const gradientSteps = generateGradientSteps(colors, steps);
-  if (customStepStops.length > 1) {
+  if (customStepStops.length > 0) {
     const transformedSteps = gradientSteps.map(
-      (step, i) => `${step}${i > 0 && customStepStops[i] !== undefined ? ` ${customStepStops[i]}` : ''}`);
+      (step, i) => `${step}${customStepStops[i] !== undefined ? ` ${customStepStops[i]}` : ''}`);
     const gradientCSSString = `linear-gradient(${customStepDirection}, ${transformedSteps.join(', ')});`;
     return gradientCSSString;
   }
