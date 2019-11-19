@@ -1,27 +1,69 @@
-# TSDX Bootstrap
+# Gradient Step/String Generator
 
 This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).
 
-## Local Development
+## Installation
 
-Below is a list of commands you will probably find useful.
+`yarn add gradient-steps-string-generator`
 
-### `npm start` or `yarn start`
+or
 
-Runs the project in development/watch mode. Your project will be rebuilt upon changes. TSDX has a special logger for you convenience. Error messages are pretty printed and formatted for compatibility VS Code's Problems tab.
+`npm i gradient-steps-string-generator`
 
-<img src="https://user-images.githubusercontent.com/4060187/52168303-574d3a00-26f6-11e9-9f3b-71dbec9ebfcb.gif" width="600" />
+## Basic Usage
 
-Your library will be rebuilt if you make edits.
+With no arguments, `generateGradientCSSString` will return values from `#000` to `#fff` over 11 stops.
 
-### `npm run build` or `yarn build`
+```
+import { generateGradientCSSString } from 'gradient-steps-string-generator';
 
-Bundles the package to the `dist` folder.
-The package is optimized and bundled with Rollup into multiple formats (CommonJS, UMD, and ES Module).
+const linearString = generateGradientCSSString();
+// resolves to linear-gradient(45deg, rgb(0, 0, 0), rgb(26, 26, 26), rgb(51, 51, 51), rgb(77, 77, 77), rgb(102, 102, 102), rgb(128, 128, 128), rgb(153, 153, 153), rgb(179, 179, 179), rgb(204, 204, 204), rgb(230, 230, 230), rgb(255, 255, 255));
+```
 
-<img src="https://user-images.githubusercontent.com/4060187/52168322-a98e5b00-26f6-11e9-8cf6-222d716b75ef.gif" width="600" />
+### Standard Arguments
 
-### `npm test` or `yarn test`
+`generateGradientCSSString` takes an array of colors as it's first argument, colors can be formatted as hex, rgb(a), string, or hsl(a). The second argument is the number of color stops (plus 1).
 
-Runs the test watcher (Jest) in an interactive mode.
-By default, runs tests related to files changed since the last commit.
+```
+import { generateGradientCSSString } from 'gradient-steps-string-generator';
+
+const linearString = generateGradientCSSString(['red', 'blue'], 5);
+// resolves to linear-gradient(45deg, rgb(255, 0, 0), rgb(204, 0, 51), rgb(153, 0, 102), rgb(102, 0, 153), rgb(51, 0, 204), rgb(0, 0, 255));
+```
+
+### Options Argument
+
+`generateGradientCSSString` takes an optional third argument. `options` has two properties `customStepDirection` and `customStepStops`. `customStepDirection` will replace `45deg` in the returned string, you can use any string value (recommend (N)deg). `customStepStops` is an array of strings or empty indices. You can use this to apply percentage values after each new color value.
+
+```
+import { generateGradientCSSString } from 'gradient-steps-string-generator';
+
+const linearString = generateGradientCSSString(['red', 'blue'], 5, {
+        customStepDirection: 'to left',
+        customStepStops: [,'30%', '50%']
+      }));
+// resolves to linear-gradient(to left, rgb(255, 0, 0), rgb(204, 0, 51) 30%, rgb(153, 0, 102) 50%, rgb(102, 0, 153), rgb(51, 0, 204), rgb(0, 0, 255));
+```
+
+## generateGradientSteps
+
+This package also exposes `generateGradientSteps`, which can be helpful if you need the raw values of each gradient step. This is particularly helpful with `Canvas` and `SVG`s. `generateGradientSteps` takes the same standard arguments as `generateGradientCSSString` and no optional arguments (I'd like to add a means of configuring the offset, but it seems best to do it case by case as shown below)
+
+```
+import { generateGradientSteps } from 'gradient-steps-string-generator';
+
+const gradientSteps = generateGradientSteps(['red', 'blue'], 5);
+// resolves to ['rgb(255, 0, 0)', 'rgb(204, 0, 51)', 'rgb(153, 0, 102)', 'rgb(102, 0, 153)', 'rgb(51, 0, 204)', 'rgb(0, 0, 255)']
+
+<svg>
+  ...
+  {gradientSteps.map((color, i) => (
+    <stop
+      key={color}
+      stopColor={color}
+      offset={`${(i * 100) / (gradientSteps.length - 1)}%`}
+    />
+  ))}
+</svg>
+```
