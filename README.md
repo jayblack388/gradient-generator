@@ -1,6 +1,5 @@
 # Gradient Step/String Generator
 
-This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).
 Check out a live demo [![Netlify Status](https://api.netlify.com/api/v1/badges/e50b3e66-9e16-4dd1-bccf-906cd0325c70/deploy-status)](https://app.netlify.com/sites/modest-kalam-3096b8/deploys)
 
 ## Installation
@@ -68,3 +67,6 @@ const gradientSteps = generateGradientSteps(['red', 'blue'], 5);
   ))}
 </svg>
 ```
+
+#### TSDX
+This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).
