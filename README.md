@@ -1,6 +1,8 @@
 # Gradient Step/String Generator
 
-Check out a live demo [![Netlify Status](https://api.netlify.com/api/v1/badges/e50b3e66-9e16-4dd1-bccf-906cd0325c70/deploy-status)](https://app.netlify.com/sites/modest-kalam-3096b8/deploys)
+[Check out a live demo](https://modest-kalam-3096b8.netlify.com/)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e50b3e66-9e16-4dd1-bccf-906cd0325c70/deploy-status)](https://app.netlify.com/sites/modest-kalam-3096b8/deploys)
 
 ## Installation
 
