@@ -1,11 +1,24 @@
 import { scaleLinear } from 'd3-scale';
 
+export const generatePercents = (colors: string[] = ['#000', '#fff']) => {
+  const n = colors.length - 1;
+  const percents = colors.map((_, i) => {
+    if (i === 0) return i;
+    else if (i === n) return 1;
+    else {
+      return i / n;
+    }
+  });
+  return percents;
+};
+
 export const generateGradientSteps = (
   colors: string[] = ['#000', '#fff'],
   steps: number = 10
 ) => {
+  const domain = generatePercents(colors);
   const colorScale = scaleLinear<string>()
-    .domain([0, 1])
+    .domain(domain)
     .range(colors);
   const gradientSteps = colorScale.ticks(steps).map(value => colorScale(value));
 
@@ -26,10 +39,18 @@ export const generateGradientCSSString = (
   const gradientSteps = generateGradientSteps(colors, steps);
   if (customStepStops.length > 0) {
     const transformedSteps = gradientSteps.map(
-      (step, i) => `${step}${customStepStops[i] !== undefined ? ` ${customStepStops[i]}` : ''}`);
-    const gradientCSSString = `linear-gradient(${customStepDirection}, ${transformedSteps.join(', ')})`;
+      (step, i) =>
+        `${step}${
+          customStepStops[i] !== undefined ? ` ${customStepStops[i]}` : ''
+        }`
+    );
+    const gradientCSSString = `linear-gradient(${customStepDirection}, ${transformedSteps.join(
+      ', '
+    )})`;
     return gradientCSSString;
   }
-  const gradientCSSString = `linear-gradient(${customStepDirection}, ${gradientSteps.join(', ')})`;
+  const gradientCSSString = `linear-gradient(${customStepDirection}, ${gradientSteps.join(
+    ', '
+  )})`;
   return gradientCSSString;
 };

@@ -35,16 +35,16 @@ describe('generateGradientSteps', () => {
   it('works with 3 colors', () => {
     expect(generateGradientSteps(['red', 'blue', 'green'])).toEqual([
       'rgb(255, 0, 0)',
-      'rgb(230, 0, 26)',
       'rgb(204, 0, 51)',
-      'rgb(179, 0, 77)',
       'rgb(153, 0, 102)',
-      'rgb(128, 0, 128)',
       'rgb(102, 0, 153)',
-      'rgb(77, 0, 179)',
       'rgb(51, 0, 204)',
-      'rgb(26, 0, 230)',
       'rgb(0, 0, 255)',
+      'rgb(0, 26, 204)',
+      'rgb(0, 51, 153)',
+      'rgb(0, 77, 102)',
+      'rgb(0, 102, 51)',
+      'rgb(0, 128, 0)',
     ]);
   });
 });
