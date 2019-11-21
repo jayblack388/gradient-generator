@@ -27,9 +27,9 @@ export const generateGradientCSSString = (
   if (customStepStops.length > 0) {
     const transformedSteps = gradientSteps.map(
       (step, i) => `${step}${customStepStops[i] !== undefined ? ` ${customStepStops[i]}` : ''}`);
-    const gradientCSSString = `linear-gradient(${customStepDirection}, ${transformedSteps.join(', ')});`;
+    const gradientCSSString = `linear-gradient(${customStepDirection}, ${transformedSteps.join(', ')})`;
     return gradientCSSString;
   }
-  const gradientCSSString = `linear-gradient(${customStepDirection}, ${gradientSteps.join(', ')});`;
+  const gradientCSSString = `linear-gradient(${customStepDirection}, ${gradientSteps.join(', ')})`;
   return gradientCSSString;
 };
