@@ -25,7 +25,7 @@ const linearString = generateGradientCSSString();
 
 ### Standard Arguments
 
-`generateGradientCSSString` takes an array of colors as it's first argument, colors can be formatted as hex, rgb(a), string, or hsl(a). The second argument is the number of color stops (plus 1).
+`generateGradientCSSString` takes an array of colors as it's first argument, input colors can be formatted as hex, rgb, string, or hsl. The second argument is the (appoximate) number of color stops. The number of color stops is approximate due to the way `d3` handles their `ticks` method.
 
 ```
 import { generateGradientCSSString } from 'gradient-steps-string-generator';
